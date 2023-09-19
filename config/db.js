@@ -1,9 +1,10 @@
 require("dotenv").config({ path: ".env" });
 
 const mongoose = require("mongoose");
-mongoose
+mongoose //(mongodb+srv://mdr:<password>@cluster0.d1qayrv.mongodb.net/?retryWrites=true&w=majority)
   .connect(
-    `mongodb+srv://${process.env.DB_USER_PASS}@cluster0.d1qayrv.mongodb.net/socialmediadb`,
+    //`mongodb+srv://${process.env.DB_USER_PASS}@cluster0.d1qayrv.mongodb.net/socialmediadb`,
+    `mongodb+srv://${process.env.DB_USER_PASS}@cluster0.d1qayrv.mongodb.net/socialmediadb?retryWrites=true&w=majority`,
     {
       useNewUrlParser: true,
       useUnifiedTopology: true,
