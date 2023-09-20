@@ -5,20 +5,16 @@ const checkUser = async (req, res, next) => {
   const token = req.cookies.jwt;
 
   if (token) {
-    jwt.verify(
-      token,
-      "7dffc368c2113a72ed7aac0c7b716b4d",
-      async (err, decodedToken) => {
-        if (err) {
-          res.locals.user = null;
-          next();
-        } else {
-          const user = await UserModel.findById(decodedToken.id);
-          res.locals.user = user;
-          next();
-        }
+    jwt.verify(token, process.env.TOKEN_SECRET, async (err, decodedToken) => {
+      if (err) {
+        res.locals.user = null;
+        next();
+      } else {
+        const user = await UserModel.findById(decodedToken.id);
+        res.locals.user = user;
+        next();
       }
-    );
+    });
   } else {
     res.locals.user = null;
     next();
@@ -29,17 +25,13 @@ const requireAuth = (req, res, next) => {
   const token = req.cookies.jwt;
 
   if (token) {
-    jwt.verify(
-      token,
-      "7dffc368c2113a72ed7aac0c7b716b4d",
-      (err, decodedToken) => {
-        if (err) {
-          res.status(403).json({ error: "Accès interdit" });
-        } else {
-          next();
-        }
+    jwt.verify(token, process.env.TOKEN_SECRET, (err, decodedToken) => {
+      if (err) {
+        res.status(403).json({ error: "Accès interdit" });
+      } else {
+        next();
       }
-    );
+    });
   } else {
     res.status(401).json({ error: "Non autorisé" });
   }
