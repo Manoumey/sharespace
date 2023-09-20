@@ -20,20 +20,19 @@ const Navbar = () => {
           </NavLink>
         </div>
         <ul>
-          <li></li>
           {uid ? (
             <>
-              <li className="welcome">
+              <li className="welcome" key="welcome">
                 <NavLink exact to="/profil">
                   <h5>Welcome {userData.pseudo}</h5>
                 </NavLink>
               </li>
-              <li>
+              <li key="logout">
                 <Logout />
               </li>
             </>
           ) : (
-            <li>
+            <li key="login">
               <NavLink exact to="/profil">
                 <img src="./img/icons/login.svg" alt="login" />
               </NavLink>
