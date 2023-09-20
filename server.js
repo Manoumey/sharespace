@@ -10,7 +10,7 @@ const cors = require("cors");
 const app = express();
 
 const corsOptions = {
-  origin: "http://localhost:3000",
+  origin: process.env.CLIENT_URL,
   credentials: true,
   allowedHeaders: ["sessionId", "Content-Type"],
   exposedHeaders: ["sessionId"],
@@ -35,6 +35,8 @@ app.use("/api/user", userRoutes);
 app.use("/api/post", postRoutes);
 
 //Server
-app.listen(5000, () => {
-  console.log(`Der Server ist unter http://localhost:5000 erreichbar.`);
+app.listen(process.env.PORT, () => {
+  console.log(
+    `Der Server ist unter http://localhost:${process.env.PORT} erreichbar.`
+  );
 });
